@@ -7,6 +7,6 @@ interface IDisjointSetMember {
     public function setParent($member);
     public function getParent();
     public function getKey();
-    public function getSize();
-    public function incSize();
+    public function getRank();
+    public function increaseRank();
 }

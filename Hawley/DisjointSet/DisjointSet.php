@@ -8,7 +8,9 @@ class DisjointSet implements IDisjointSet {
     protected function changeParent(IDisjointSetMember $parent, 
       IDisjointSetMember $child) {
         $child->setParent($parent->getKey());
-        $parent->incSize();
+        if($parent->getRank() == $child->getRank()) {
+            $parent->increaseRank();
+        }
     }
     
     public function add(IDisjointSetMember $member) {
@@ -17,12 +19,12 @@ class DisjointSet implements IDisjointSet {
     
     public function find($key) {
         if(!isset($this->members[$key])) {
-            throw new Exception("$key not found in disjoint set");
+            throw new Exception("Key not found in disjoint set");
         }
         
         $parent = $this->members[$key]->getParent();
         if($parent === $key) {
-            return $this->members[$key]->getParent();
+            return $parent;
         } else {
             return $this->find($parent);
         }
@@ -31,7 +33,7 @@ class DisjointSet implements IDisjointSet {
     public function union($key1, $key2) {
         $parent1 = $this->members[$this->find($key1)];
         $parent2 = $this->members[$this->find($key2)];
-        if($parent1->getSize() < $parent2->getSize()) {
+        if($parent1->getRank() < $parent2->getRank()) {
             $this->changeParent($parent2, $parent1);
         } else {
             $this->changeParent($parent1, $parent2);

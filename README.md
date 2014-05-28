@@ -1,5 +1,6 @@
 # Incomplete
 * Verify performance of find and union
+* Implement path compression
 
 #### Purpose
 To provide disjoint set data structures with various performance characteristics

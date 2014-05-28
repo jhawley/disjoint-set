@@ -10,9 +10,9 @@ class TestOfDisjointSetMember extends UnitTestCase {
         $djsm = new DisjointSetMember(1);
         $this->assertEqual($djsm->getKey(), 1);
         $this->assertEqual($djsm->getParent(), 1);
-        $this->assertEqual($djsm->getSize(), 0);
-        $djsm->incSize();
-        $this->assertEqual($djsm->getSize(), 1);
+        $this->assertEqual($djsm->getRank(), 0);
+        $djsm->increaseRank();
+        $this->assertEqual($djsm->getRank(), 1);
         $djsm->setParent(2);
         $this->assertEqual($djsm->getParent(), 2);
     }
@@ -21,7 +21,8 @@ class TestOfDisjointSetMember extends UnitTestCase {
 class TestOfDisjointSet extends UnitTestCase {
     public function testSet() {
         $set = new DisjointSet();
-        $set->add(new DisjointSetMember(1));
+        $one = new DisjointSetMember(1);
+        $set->add($one);
         $set->add(new DisjointSetMember(2));
         $set->add(new DisjointSetMember(3));
         $set->add(new DisjointSetMember(4));
@@ -31,6 +32,7 @@ class TestOfDisjointSet extends UnitTestCase {
         $set->union(1, 2);
         $this->assertEqual($set->find(2), 1);
         $this->assertEqual($set->find(1), 1);
+        $this->assertEqual($one->getRank(), 1);
         $set->union(3, 1);
         $this->assertEqual($set->find(3), 1);
         $this->assertEqual($set->find(1), 1);
@@ -39,10 +41,12 @@ class TestOfDisjointSet extends UnitTestCase {
         $this->assertEqual($set->find(4), 1);
         $this->assertEqual($set->find(5), 1);
         $this->assertEqual($set->find(1), 1);
+        $this->assertEqual($one->getRank(), 2);
         $set->union(6, 7);
         $set->union(1, 7);
         $this->assertEqual($set->find(6), 1);
         $this->assertEqual($set->find(7), 1);
         $this->assertEqual($set->find(1), 1);
+        $this->assertEqual($one->getRank(), 2);
     }
 }

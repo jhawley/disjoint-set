@@ -23,11 +23,11 @@ class DisjointSetMember implements IDisjointSetMember {
         return $this->key;
     }
     
-    public function getSize() {
+    public function getRank() {
         return $this->size;
     }
     
-    public function incSize() {
+    public function increaseRank() {
         $this->size++;
     }
 }
