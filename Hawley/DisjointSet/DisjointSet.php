@@ -19,7 +19,7 @@ class DisjointSet implements IDisjointSet {
     
     public function find($key) {
         if(!isset($this->members[$key])) {
-            throw new Exception("Key not found in disjoint set");
+            throw new \Exception("Key not found in disjoint set");
         }
         
         $parent = $this->members[$key]->getParent();
@@ -27,19 +27,14 @@ class DisjointSet implements IDisjointSet {
             return $parent;
         } else {
             $newParent = $this->find($parent);
-            echo "set $key's parent to $newParent\n";
             $this->members[$key]->setParent($newParent);
             return $newParent;
         }
     }
     
     public function union($key1, $key2) {
-        if(!isset($this->members[$this->members[$key1]->getParent()]) || 
-          !isset($this->members[$this->members[$key1]->getParent()])) {
-            throw new Exception("Parent not found:  disjoint set corrupt");
-        }
-        $parent1 = $this->members[$this->members[$key1]->getParent()];
-        $parent2 = $this->members[$this->members[$key2]->getParent()];
+        $parent1 = $this->members[$this->find($key1)];
+        $parent2 = $this->members[$this->find($key2)];
         if($parent1->getRank() < $parent2->getRank()) {
             $this->changeParent($parent2, $parent1);
         } else {
