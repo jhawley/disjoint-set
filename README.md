@@ -1,11 +1,7 @@
-# Incomplete
-* Verify performance of find and union
-* Implement path compression
-
-#### Purpose
+# Purpose
 To provide disjoint set data structures with various performance characteristics
 
-#### Example
+# Example
     $set = new DisjointSet();
     $set->add(new DisjointSetMember(1));
     $set->add(new DisjointSetMember(2));
@@ -31,8 +27,8 @@ To provide disjoint set data structures with various performance characteristics
     $this->assertEqual($set->find(7), 1);
     $this->assertEqual($set->find(1), 1);
 
-#### Installation
+# Installation
 Requires PHP 5.3.0 (for namespaces).
 
-#### License
+# License
 Public domain without warranties

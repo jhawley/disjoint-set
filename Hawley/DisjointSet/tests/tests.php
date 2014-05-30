@@ -43,9 +43,10 @@ class TestOfDisjointSet extends UnitTestCase {
         $this->assertEqual($set->find(1), 1);
         $this->assertEqual($one->getRank(), 2);
         $set->union(6, 7);
-        $set->union(1, 7);
+        $set->union(5, 7);
         $this->assertEqual($set->find(6), 1);
         $this->assertEqual($set->find(7), 1);
+        $this->assertEqual($set->find(7), 1); //assert path compression
         $this->assertEqual($set->find(1), 1);
         $this->assertEqual($one->getRank(), 2);
     }
